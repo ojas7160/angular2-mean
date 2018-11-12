@@ -27,8 +27,8 @@ const app = express();
 app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: false}));
 
-mongoose.connect('mongodb://localhost/new-mean-course').then(() => {
-	console.log('connected to databse successfully');
+mongoose.connect('mongodb://localhost/new-mean-course').then((db) => {
+	console.log('connected to databse successfully', db);
 }).catch(() => {
 	console.log('connected to databse failed');
 });
