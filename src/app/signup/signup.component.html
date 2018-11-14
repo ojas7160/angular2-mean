@@ -1,3 +1,19 @@
-<p>
-  signup works!
-</p>
+
+<mat-card>
+  <form (submit)="signup(signupForm)" #signupForm="ngForm">
+    <mat-form-field>
+      <input matInput name="email" type="email" ngModel placeholder="Email" required #emailInput="ngModel" email>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput name="password" type="password" ngModel placeholder="Password" required #passwordInput="ngModel">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput name="confirmPassword" type="password" ngModel placeholder="Confirm Password" required #confirmPasswordInput="ngModel">
+    </mat-form-field>
+
+
+    <button mat-raised-button color="primary" type="submit">Signup</button>
+  </form>
+</mat-card>
