@@ -1,0 +1,15 @@
+<mat-card>
+  <mat-spinner></mat-spinner>
+  <form (submit)="login(loginForm)" #loginForm="ngForm">
+    <mat-form-field>
+      <input matInput type="text" name="email" ngModel #emailInput="ngModel" placeholder="Email" required email>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="password" name="password" ngModel #passwordInput="ngModel" placeholder="Password" required password>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Login</button>
+  </form>
+</mat-card>
+<br>
