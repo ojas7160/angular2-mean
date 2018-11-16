@@ -40,10 +40,10 @@ exports.userLogin = (req, res, next) => {
 
 exports.createUser = (req, res, next) => {
   bcrypt.hash(req.body.password, 10).then(hashedPassword => {
-    const user = {
+    const user = new User({
       email: req.body.email, 
       password: hashedPassword
-    }
+    })
 
     user.save()
     .then(newUser => {

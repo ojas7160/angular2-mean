@@ -1,4 +1,12 @@
-<p>
-  posts-component works!
-</p>
+<mat-card>
+  <form (submit)="createPost(postForm)" #postForm="ngForm">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Title" ngModel name="title" #titleInput="ngModel" title>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput type="text" placeholder="description" ngModel name="description" #descriptionInput="ngModel" description></textarea>
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="info">Save</button>
+  </form>
+</mat-card>
 <a routerLink="/posts">Posts</a>

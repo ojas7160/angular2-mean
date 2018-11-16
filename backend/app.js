@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
+const userRoute = require('./routes/userRoute');
+const postsRoutes = require('./routes/postRoute');
 
 // it is just to create an express app
 // express provided lots of functionalioty to behave lika middleware b/w req and resp
@@ -41,8 +43,9 @@ app.use((req, res, next) => {
 });
 
 // just to aware express about the post routes
-// app.use("/api/posts",postsRoutes);
-// app.use("/api/users",usersRoutes);
+app.use("/api/posts",postsRoutes);
+
+app.use("/api/users",userRoute);
 //to export the express js app
 module.exports = app;
 
