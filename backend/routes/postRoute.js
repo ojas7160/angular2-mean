@@ -6,3 +6,4 @@ module.exports = router;
 
 router.post('', postController.createPost)
 router.get('/posts', postController.getAllPosts)
+router.get('/userPosts', postController.getAllPostsForParticularUser)

@@ -10,20 +10,23 @@ export class PostsComponentComponent implements OnInit {
 
   constructor(public http: HttpClient) {
     console.log('here');
-   }
-
-  ngOnInit() {
   }
 
-
-createPost(form: NgForm){
-    console.log(form)
-    let post = {title: form.value.title, description: form.value.description};
-    this.http.post('http://localhost:3001/api/posts', {title: form.value.title, description: form.value.description})
+  ngOnInit() {
+    this.http.get('http://localhost:3001/api/users/user?user_id='+localStorage.getItem('userId'))
     .subscribe((response) => {
       console.log(response)
     })
-}
+  }
 
 
+  createPost(form: NgForm){
+    console.log(form)
+    let post = {title: form.value.title, description: form.value.description};
+    const userId = localStorage.getItem('userId');
+    this.http.post('http://localhost:3001/api/posts', {title: form.value.title, description: form.value.description, userId: userId})
+    .subscribe((response) => {
+      console.log(response)
+    })
+  }
 }

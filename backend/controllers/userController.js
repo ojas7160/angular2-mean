@@ -58,5 +58,17 @@ exports.createUser = (req, res, next) => {
     });
   })
 }
+
+exports.getUser = (req, res, next) => {
+  console.log(req)
+  let user = {_id: req.query.user_id}
+  User.find(user)
+  .then((data) => {
+    res.status(201).json({
+      user: data,
+      message: 'User found'
+    })
+  })
+}
 // ordinary way
 // exports.userLogin = function(req, res, next){}

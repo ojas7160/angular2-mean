@@ -13,6 +13,10 @@ export class SignupComponent implements OnInit {
   constructor(public http: HttpClient) { }
 
   ngOnInit() {
+    this.http.get('http://localhost:3001/api/posts/userPosts?userId='+localStorage.getItem('userId'))
+    .subscribe((data) => {
+      console.log(data)
+    })
   }
 
   signup(form: NgForm){
@@ -20,6 +24,7 @@ export class SignupComponent implements OnInit {
     this.http.post('http://localhost:3001/api/users/signup', {email: form.value.email, password: form.value.password})
     .subscribe(response => {
       console.log(response)
+      localStorage.setItem('userId', response.user._id)
     })
   }
 

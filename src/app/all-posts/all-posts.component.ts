@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-all-posts',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllPostsComponent implements OnInit {
 
-  constructor() { }
+  constructor(public http: HttpClient) { }
 
   ngOnInit() {
+    this.http.get('http://localhost:3001/api/posts/posts')
+    .subscribe((response) => {
+      console.log(response);
+    });
   }
 
 }
