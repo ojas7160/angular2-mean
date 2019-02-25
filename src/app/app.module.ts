@@ -11,6 +11,13 @@ import { AngularMaterialModule } from './angularMaterial.module';
 import { AllPostsComponent } from './all-posts/all-posts.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { HeaderComponent } from './header/header.component';
+import { BlogsComponent } from './blogs/blogs.component';
+import { BlogsListComponent } from './blogs-list/blogs-list.component';
+
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -19,7 +26,10 @@ import { SignupComponent } from './signup/signup.component';
     PostsComponentComponent,
     AllPostsComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    HeaderComponent,
+    BlogsComponent,
+    BlogsListComponent
   ],
   imports: [
     HttpClientModule,
@@ -27,7 +37,10 @@ import { SignupComponent } from './signup/signup.component';
     BrowserModule,
     AppRouterModule,
     AngularMaterialModule,
-    FormsModule
+    FormsModule,
+    BsDropdownModule.forRoot(),
+    TooltipModule.forRoot(),
+    ModalModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

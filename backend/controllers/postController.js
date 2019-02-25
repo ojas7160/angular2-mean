@@ -9,7 +9,6 @@ exports.createPost = (req, res, next) => {
 
   post.save()
   .then((newPost) => {
-
     res.status(201).json({
       message: 'new post success',
       post: newPost

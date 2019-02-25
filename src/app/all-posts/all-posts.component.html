@@ -1,3 +1,18 @@
 <p>
   all-posts works!
 </p>
+<div>
+  <ul>
+    <li *ngFor="let post of posts">
+      {{post.title}}
+    </li>
+  </ul>
+</div>
+
+{{allPosts}}
+
+<input #box (keyup)="0"> <!-- only use it in forms template reference variable-->
+<p>{{box.value}}</p>
+
+<input [(ngModel)]="test">
+<p>{{test}}</p>

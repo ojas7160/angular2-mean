@@ -24,7 +24,9 @@ export class SignupComponent implements OnInit {
     this.http.post('http://localhost:3001/api/users/signup', {email: form.value.email, password: form.value.password})
     .subscribe(response => {
       console.log(response)
-      localStorage.setItem('userId', response.user._id)
+      // if(!!response.user){
+      //   localStorage.setItem('userId', response.user._id)
+      // }
     })
   }
 
