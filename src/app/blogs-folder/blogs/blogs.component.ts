@@ -1,12 +1,12 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-
+import { Blog } from '../blog.model';
 @Component({
   selector: 'app-blogs',
   templateUrl: './blogs.component.html',
   styleUrls: ['./blogs.component.css']
 })
 export class BlogsComponent implements OnInit {
-  @Output() blogAdded = new EventEmitter();
+  @Output() blogAdded = new EventEmitter<Blog>();
   blogs: any = [];
   title: any;
   description: any;

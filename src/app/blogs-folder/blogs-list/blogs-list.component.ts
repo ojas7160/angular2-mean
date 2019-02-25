@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Blog } from '../blog.model';
 
 @Component({
   selector: 'app-blogs-list',
@@ -6,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./blogs-list.component.css']
 })
 export class BlogsListComponent implements OnInit {
-  @Input() blogs: any = [];
+  @Input() blogs: Blog[] = [];
   constructor() { }
 
   ngOnInit() {

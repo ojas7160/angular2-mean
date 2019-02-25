@@ -12,8 +12,8 @@ import { AllPostsComponent } from './all-posts/all-posts.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { HeaderComponent } from './header/header.component';
-import { BlogsComponent } from './blogs/blogs.component';
-import { BlogsListComponent } from './blogs-list/blogs-list.component';
+import { BlogsComponent } from './blogs-folder/blogs/blogs.component';
+import { BlogsListComponent } from './blogs-folder/blogs-list/blogs-list.component';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
