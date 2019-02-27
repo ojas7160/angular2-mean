@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Blog } from '../blog.model';
+import { NgForm } from '../../../../node_modules/@angular/forms';
 @Component({
   selector: 'app-blogs',
   templateUrl: './blogs.component.html',
@@ -15,9 +16,10 @@ export class BlogsComponent implements OnInit {
   ngOnInit() {
   }
 
-  addBlog() {
+  addBlog(form: NgForm) {
+    console.log('form', form);
     // this.blogs.push({title: this.title, description: this.description});
-    this.blogAdded.emit({title: this.title, description: this.description});
+    this.blogAdded.emit({title: form.value.title, description: form.value.description});
   }
 
 }
