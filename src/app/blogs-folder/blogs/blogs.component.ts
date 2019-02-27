@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Blog } from '../blog.model';
 import { NgForm } from '../../../../node_modules/@angular/forms';
+import { BlogService } from '../blogs.service';
 @Component({
   selector: 'app-blogs',
   templateUrl: './blogs.component.html',
@@ -11,7 +12,7 @@ export class BlogsComponent implements OnInit {
   blogs: any = [];
   title: any;
   description: any;
-  constructor() { }
+  constructor(public blogService: BlogService) { }
 
   ngOnInit() {
   }
