@@ -19,8 +19,12 @@ export class BlogsComponent implements OnInit {
 
   addBlog(form: NgForm) {
     console.log('form', form);
+    if (form.invalid) {
+      return;
+    }
     // this.blogs.push({title: this.title, description: this.description});
-    this.blogAdded.emit({title: form.value.title, description: form.value.description});
+    // this.blogAdded.emit({title: form.value.title, description: form.value.description});
+    this.blogService.addBlogs(form.value.title, form.value.description);
+    form.reset(); // this will reset the form to empty title n desc
   }
-
 }

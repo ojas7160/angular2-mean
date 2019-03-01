@@ -1,15 +1,18 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Blog } from '../blog.model';
 import { BlogService } from '../blogs.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-blogs-list',
   templateUrl: './blogs-list.component.html',
   styleUrls: ['./blogs-list.component.css']
 })
-export class BlogsListComponent implements OnInit {
-  @Input() blogs: Blog[] = [];
-  constructor(public blogService: BlogService) {
+export class BlogsListComponent implements OnInit, OnDestroy {
+  // @Input() blogs: Blog[] = [];
+  blogs: Blog[] = [];
+  private blogSub: Subscription;
+  constructor(public blogService: BlogService) { // automatically creates a property of same name
     // this blogService, we can fetch
     // this variable in the entire file
     // with 'this.blogService' only because
@@ -19,7 +22,17 @@ export class BlogsListComponent implements OnInit {
     // in file.
    }
 
-  ngOnInit() {
+  ngOnInit() { // runs auto when this component is made. it requires onInit interface to be implemented
+    console.log('here-----------');
+    // this.blogs = this.blogService.getBlogs();
+    console.log('blogs', this.blogs);
+    this.blogSub = this.blogService.getBlogUpdatedListener()
+    .subscribe((blogs: Blog[]) => {
+      this.blogs = blogs;
+    });
   }
 
+  ngOnDestroy() {
+    this.blogSub.unsubscribe();
+  }
 }
