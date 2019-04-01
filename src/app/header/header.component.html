@@ -1,7 +1,33 @@
-<nav class="nav nav-pills nav-fill bg-black">
-  <div class="text-white">My Posts</div>
-  <!-- <a class="nav-item nav-link active" href="#">Posts</a> -->
-  <!-- <a class="nav-item nav-link" href="#">Much longer nav link</a>
-  <a class="nav-item nav-link" href="#">Link</a>
-  <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
+<nav class="navbar navbar-expand-lg navbar-light py-3 bg-brown" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto my-2 my-lg-0">
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" [routerLink]="['/posts']">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" [routerLink]="['/post']">Create post</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" [routerLink]="['/signup']">Signup</a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>

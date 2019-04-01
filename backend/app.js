@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const userRoute = require('./routes/userRoute');
 const postsRoutes = require('./routes/postRoute');
+const blogRoute = require('./routes/blogRoute');
 
 // it is just to create an express app
 // express provided lots of functionalioty to behave lika middleware b/w req and resp
@@ -25,7 +26,7 @@ const app = express();
 // 	res.send('calling from middleware');
 // });
 
-// body-parser is a npm module which allow to parse the body of the request
+// body-parser is an npm module which allow to parse the body of the request
 app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: false}));
 
@@ -38,7 +39,7 @@ mongoose.connect('mongodb://localhost/new-mean-course').then(() => {
 app.use((req, res, next) => {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Allow-Headers','Origin, X-Requested-With, Authorization, Content-Type, Accept');
-	res.setHeader('Access-Control-Allow-Methods',"GET, POST, PATCH,PUT, DELETE, OPTIONS");
+	res.setHeader('Access-Control-Allow-Methods','GET, POST, PATCH,PUT, DELETE, OPTIONS');
 	next();
 });
 
@@ -46,8 +47,30 @@ app.use((req, res, next) => {
 app.use("/api/posts",postsRoutes);
 
 app.use("/api/users",userRoute);
+app.use("/api/blogs", blogRoute);
 //to export the express js app
 module.exports = app;
+
+
+
+//next() -> is a method which pass the middleware forward if there exist any
+//app.use -> is a middleware
+
+// app.use((req, res, next) => {
+// 	res.setHeader('Access-Control-Allow-Origin', '*');
+// 	res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Authorization, Content-Type, Accept');
+// 	res.setHeader('Access-Control-Access-Methods', 'GET, POST, DELETE, PUT, OPTIONS');
+// 	next(); // to pass it to the next middleware if any
+// })
+
+
+// mongoose.connect('mongodb://localhost/my-new-db')
+// .then(() => {
+// 	console.log('db connected')
+// })
+// .catch(() => {
+// 	console.log('oops, db not connected')
+// })
 
 
 

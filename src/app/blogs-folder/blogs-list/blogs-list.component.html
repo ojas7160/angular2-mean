@@ -1,4 +1,5 @@
 <div *ngFor="let blog of blogs">
   {{blog.title}}
-  {{blog.description}}
+  <a href="" [routerLink]="['/blogs/edit', blog.id]">Edit</a>
+  <button class="btn btn-primary" (click)="deleteBlog(blog)">Delete</button>
 </div>
