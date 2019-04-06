@@ -1,5 +1,6 @@
+const path = require("path");
 const express = require('express');
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const userRoute = require('./routes/userRoute');
 const postsRoutes = require('./routes/postRoute');
@@ -28,7 +29,8 @@ const app = express();
 
 // body-parser is an npm module which allow to parse the body of the request
 app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.urlencoded({ extended: false}));
+app.use("/images", express.static(path.join("backend/images"))); // allowing the routes starting with /images access the image folder
 
 mongoose.connect('mongodb://localhost/new-mean-course').then(() => {
 	console.log('connected to databse successfully');

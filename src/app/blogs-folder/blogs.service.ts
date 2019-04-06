@@ -20,7 +20,8 @@ export class BlogService {
         return {
           title: blog.title,
           description: blog.description,
-          id: blog._id
+          id: blog._id,
+          imagePath: blog.imagePath
         };
       });
     }))
@@ -36,38 +37,59 @@ export class BlogService {
     // array and fill new array with old array.
   }
 
-  addBlogs(title: string, description: string, userId: string) {
-    const blog: any = {title: title, description: description, userId: userId};
-    console.log('blog', blog);
-    this.http.post('http://localhost:3001/api/blogs/create-blogs', blog)
+  addBlogs(title: string, description: string, userId: string, image: File) {
+    console.log(title);
+    console.log(description);
+    // console.log(userId);
+    console.log(image);
+    const blog: any = {title: title, description: description, userId: userId, image: image};
+    const blogData: any = new FormData();
+    console.log(blogData);
+    blogData.append('title', title);
+    blogData.append('description', description);
+    blogData.append('userId', userId);
+    blogData.append('image', image, title);
+    // console.log(blog);
+    this.http.post("http://localhost:3001/api/blogs/create", blogData)
       .subscribe((response) => {
         console.log(response);
       });
-    this.blogs.push(blog);
-    this.blogsUpdated.next([...this.blogs]);
+    // this.blogs.push();
+    // this.blogsUpdated.next([...this.blogs]);
   }
 
   getBlog(id: string) {
-    return this.http.get('http://localhost:3001/api/blogs/' + id);
+    return this.http.get<{_id: string, title: string, description: string, imagePath: string}>('http://localhost:3001/api/blogs/' + id);
   }
 
-  updateBlog(id: string, title: string, description: string) {
-    const blog: any = {
-      title: title,
-      description: description,
-      id: id
-    };
-    this.http.put<{message: string}>('http://localhost:3001/api/blogs/' + id, blog)
+  updateBlog(id: string, title: string, description: string, image: string | File) {
+    console.log('service');
+    let blogData: Blog | FormData ;
+    if (typeof(image) == 'object') {
+      blogData = new FormData();
+      blogData.append("title", title);
+      blogData.append("description", description);
+      blogData.append("id", id);
+      blogData.append("image", image, title);
+    } else {
+      blogData = {
+        title: title,
+        description: description,
+        id: id,
+        imagePath: image
+      };
+    }
+    this.http.put<{message: string}>('http://localhost:3001/api/blogs/' + id, blogData)
     .subscribe((response) => {
       console.log(response);
       const updatedBlogs = [...this.blogs];
       const blogIndex = updatedBlogs.findIndex(blog => blog.id === id);
-      updatedBlogs[blogIndex] = blog;
-      this.blogsUpdated.next([...updatedBlogs]);
+      // updatedBlogs[blogIndex] = blog;
+      // this.blogsUpdated.next([...updatedBlogs]);
     });
   }
 
-  getblog(id: string) {
+  getblogWithoutReq(id: string) {
     console.log(this.blogs);
     return {...this.blogs.find((blog) => blog.id === id)};
   }

@@ -1,5 +1,6 @@
 <div *ngFor="let blog of blogs">
   {{blog.title}}
+  <img [src]="blog.imagePath" alt="image">
   <a href="" [routerLink]="['/blogs/edit', blog.id]">Edit</a>
   <button class="btn btn-primary" (click)="deleteBlog(blog)">Delete</button>
 </div>

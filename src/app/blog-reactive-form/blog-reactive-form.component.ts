@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { BlogService } from '../blogs-folder/blogs.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Blog } from '../blogs-folder/blog.model';
+import { mimeType } from '../blogs-folder/blogs/mime-type.validator';
 
 @Component({
   selector: 'app-blog-reactive-form',
@@ -14,13 +15,15 @@ export class BlogReactiveFormComponent implements OnInit {
 
   form: FormGroup;
   blog: Blog;
+  imagePreview: string;
   constructor(public router: Router, public http: HttpClient, private blogService: BlogService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.form = new FormGroup({
       title: new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]}),
-      description: new FormControl(null, {validators: [Validators.required]}),
-      image: new FormControl(null, {validators: [Validators.required]})
+      description: new FormControl(null, {validators: [Validators.required]})
+      // image: new FormControl(null, {validators: [Validators.required], asyncValidators: [mimeType]})
+      // image: new FormControl(null, {validators: [Validators.required]})
     });
       this.route.paramMap.subscribe((paramMap: ParamMap) => {
         if (paramMap.get('blogId')) {
@@ -40,10 +43,16 @@ export class BlogReactiveFormComponent implements OnInit {
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({image: file});
     console.log(this.form);
+    this.form.get('image').updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+    };
+    reader.readAsDataURL(file);
   }
 
   saveBlog() {
-    console.log(';herere');
+    console.log('here');
     console.log('form', this.form);
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.get('blogId')) {
@@ -59,7 +68,12 @@ export class BlogReactiveFormComponent implements OnInit {
         // form.reset(); // this will reset the form to empty title n desc
 
         // const blog = {title: this.form.value.title, description: this.form.value.description, userId: localStorage.getItem('userId')};
-        this.blogService.addBlogs(this.form.value.title, this.form.value.description, localStorage.getItem('userId'));
+        this.blogService.addBlogs(
+          this.form.value.title,
+          this.form.value.description,
+          localStorage.getItem('userId'),
+          this.form.value.image
+        );
       }
     });
     this.form.reset();

@@ -14,6 +14,7 @@ export class BlogsComponent implements OnInit {
   blogs: any = [];
   title: any;
   description: any;
+  imagePreview: string;
   blog: Blog;
   form: NgForm;
   constructor(public blogService: BlogService, private http: HttpClient, private route: ActivatedRoute) { }
@@ -24,11 +25,12 @@ export class BlogsComponent implements OnInit {
       if (paramMap.get('blogId')) {
         this.route.paramMap.subscribe((paramMap: ParamMap) => {
           if (paramMap.get('blogId')) {
-            this.blog = this.blogService.getblog(paramMap.get('blogId'));
+            this.blog = this.blogService.getblogWithoutReq(paramMap.get('blogId'));
             this.blogService.getBlog(paramMap.get('blogId'))
             .subscribe((response) => {
               console.log(response);
               this.blog = response.blog;
+              this.imagePreview = this.blog.imagePath;
             });
             console.log(this.blog);
           }
@@ -43,13 +45,26 @@ export class BlogsComponent implements OnInit {
     console.log(form);
     form.value.file = file;
     console.log(form);
+    const reader = new FileReader(); // in build js function
+    reader.onload = () => { // this is a asyn call
+      this.imagePreview = reader.result;
+    };
+    reader.readAsDataURL(file);
   }
 
   saveBlog(form: NgForm) {
-    if (!!this.blog.id) {
-      this.blogService.updateBlog(this.blog.id, form.value.title, form.value.description);
-    } else {
-      console.log('form', form);
+    console.log('here');
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.get('blogId')) {
+        console.log('inside');
+        this.blogService.updateBlog(paramMap.get('blogId'), form.value.title, form.value.description, form.value.file);
+      } else {
+        console.log('form', form);
+        if (form.invalid) {
+          return;
+        }
+        this.blogService.addBlogs(form.value.title, form.value.description, localStorage.getItem('userId'), form.value.file);
+      }
       // if (form.invalid) {
       //   return;
       // }
@@ -62,7 +77,6 @@ export class BlogsComponent implements OnInit {
       // .subscribe((response) => {
       //   console.log(response);
       // });
-      this.blogService.addBlogs(form.value.title, form.value.description, localStorage.getItem('userId'));
-    }
+    });
   }
 }

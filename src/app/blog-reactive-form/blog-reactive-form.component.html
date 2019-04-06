@@ -4,6 +4,7 @@
     <textarea rows="4" placeholder="Enter description" formControlName="description"></textarea>
     <button class="btn btn-info" type="button" (click)="filePicker.click()">Pick image</button>
     <input type="file" #filePicker (change)="onImageChange($event)">
+    <img [src]="imagePreview" alt="image">
     <button type="submit" class="btn btn-primary">Save</button>
   </form>
 </div>
