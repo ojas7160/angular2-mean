@@ -19,7 +19,7 @@ const routes: Routes = [
 	{path: 'signup', component: SignupComponent},
 	{path: 'blog-create', component: BlogsComponent},
 	{path: 'blogs', component: BlogsListComponent},
-	{path: 'blogs/edit/:blogId', component: BlogsComponent},
+	{path: 'blogs/:blogId/edit', component: BlogsComponent},
 	{path: 'blog-new', component: BlogReactiveFormComponent}
 ];
 @NgModule({

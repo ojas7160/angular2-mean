@@ -16,6 +16,7 @@ import { BlogsComponent } from './blogs-folder/blogs/blogs.component';
 import { BlogsListComponent } from './blogs-folder/blogs-list/blogs-list.component';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BootstrapThemeComponent } from './bootstrap-theme/bootstrap-theme.component';
@@ -43,6 +44,7 @@ import { BlogReactiveFormComponent } from './blog-reactive-form/blog-reactive-fo
     AngularMaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot()

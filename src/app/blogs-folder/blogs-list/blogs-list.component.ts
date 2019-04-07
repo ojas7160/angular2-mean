@@ -4,6 +4,7 @@ import { BlogService } from '../blogs.service';
 import { Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+// import { PageEvent } from '../../../../node_modules/@angular/material';
 
 @Component({
   selector: 'app-blogs-list',
@@ -13,6 +14,10 @@ import { map } from 'rxjs/operators';
 export class BlogsListComponent implements OnInit, OnDestroy {
   // @Input() blogs: Blog[] = [];
   blogs: Blog[] = [];
+  pageSize = 10;
+  total = 100;
+  p = 1;
+  pageSizeOption = [1, 2, 5, 10];
   private blogSub: Subscription;
   constructor(public blogService: BlogService, private http: HttpClient) { // automatically creates a property of same name
     // this blogService, we can fetch
@@ -26,7 +31,7 @@ export class BlogsListComponent implements OnInit, OnDestroy {
 
   ngOnInit() { // runs auto when this component is made. it requires onInit interface to be implemented
     console.log('here-----------');
-    this.blogService.getBlogs();
+    this.blogService.getBlogs(this.pageSize, this.p);
     console.log('blogs', this.blogs);
     this.blogSub = this.blogService.getBlogUpdatedListener()
     .subscribe((blogs: Blog[]) => {
@@ -39,8 +44,27 @@ export class BlogsListComponent implements OnInit, OnDestroy {
     this.blogSub.unsubscribe();
   }
 
+  pageChange(event) {
+    console.log(this.p);
+  }
+
+  pageChangeSelect(event) {
+    console.log(event);
+    // this.blogService.getBlogs(this.pageSize, this.p);
+    // this.blogSub = this.blogService.getBlogUpdatedListener()
+    // .subscribe((blogs: Blog[]) => {
+    //   this.blogs = blogs;
+    //   console.log(this.blogs);
+    // });
+  }
+
+  newPageChange() {
+    console.log('----');
+    this.blogService.getBlogs(this.pageSize, this.p);
+  }
+
   deleteBlog(blog) {
-    this.http.delete('http://localhost:3001/api/blogs/'+ blog.id +'/delete-blog')
+    this.http.delete('http://localhost:3001/api/blogs/' + blog.id + '/delete-blog')
     .subscribe((response) => {
       console.log(response);
       const blogUpdated = this.blogs.filter(blogData => blogData.id !== blog.id);

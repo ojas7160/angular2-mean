@@ -26,8 +26,14 @@ exports.createBlog = (req, res, next) => {
 }
 
 exports.getAllBlogs = (req, res) => {
-  Blog.find()
-  .then((blogs) => {
+  const blogQuery = Blog.find();
+  const pageSize = +req.query.pagesize; // + to convert string into integer
+  const currentPage = +req.query.currentpage;
+  if ( pageSize && currentPage ) {
+    blogQuery.skip(pageSize * (currentPage - 1)).limit(pageSize); // skip method to skip irrelevant data
+    // like offset the previous blogs and limit it the following blogs
+  }
+  blogQuery.then((blogs) => {
     res.status(201).json({
       message: 'All blogs',
       blogs: blogs

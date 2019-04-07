@@ -1,6 +1,25 @@
-<div *ngFor="let blog of blogs">
+<div *ngFor="let blog of blogs | paginate: {
+itemsPerPage: pageSize,
+currentPage: p,
+totalItems: total }">
   {{blog.title}}
   <img [src]="blog.imagePath" alt="image">
   <a href="" [routerLink]="['/blogs/edit', blog.id]">Edit</a>
   <button class="btn btn-primary" (click)="deleteBlog(blog)">Delete</button>
 </div>
+<select [(ngModel)]="pageSize" (change)="newPageChange()">
+  <option *ngFor="let i of pageSizeOption" value={{i}}>
+    {{i}}
+  </option>
+</select>
+<pagination-controls (pageChange)="p = $event; newPageChange()"
+  maxSize="9"
+  directionLinks="true"
+  autoHide="true"
+  responsive="true"
+  previousLabel="Previous"
+  nextLabel="Next"
+  screenReaderPaginationLabel="Pagination"
+  screenReaderPageLabel="page"
+  screenReaderCurrentLabel="You're on page">
+</pagination-controls>

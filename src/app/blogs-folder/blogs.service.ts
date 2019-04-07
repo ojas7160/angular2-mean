@@ -10,10 +10,11 @@ export class BlogService {
   private blogs: Blog[] = [];
   private blogsUpdated = new Subject<Blog[]>();
   constructor(private http: HttpClient) {}
-  getBlogs() {
+  getBlogs(pageSize: number, currentPage: number) {
     console.log('yes');
     console.log('-----');
-    this.http.get<{message: string, blogs: any}>('http://localhost:3001/api/blogs/all-blogs')
+    const queryParams = `?pagesize=${pageSize}&currentpage=${currentPage}`;
+    this.http.get<{message: string, blogs: any}>('http://localhost:3001/api/blogs/all-blogs' + queryParams)
     .pipe(map((blogData) => {
       console.log(blogData);
       return blogData.blogs.map(blog => {
