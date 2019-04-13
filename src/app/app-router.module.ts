@@ -8,6 +8,7 @@ import { BootstrapThemeComponent } from './bootstrap-theme/bootstrap-theme.compo
 import { BlogsComponent } from './blogs-folder/blogs/blogs.component';
 import { BlogsListComponent } from './blogs-folder/blogs-list/blogs-list.component';
 import { BlogReactiveFormComponent } from './blog-reactive-form/blog-reactive-form.component';
+import { AuthGuard } from './auth.guard';
 
 
 // Routes are simple javascript object where we define to which url for which part of our app should be presented
@@ -17,14 +18,15 @@ const routes: Routes = [
 	{path: 'posts', component: AllPostsComponent},
 	{path: 'login', component: LoginComponent},
 	{path: 'signup', component: SignupComponent},
-	{path: 'blog-create', component: BlogsComponent},
+	{path: 'blog-create', component: BlogsComponent, canActivate: [AuthGuard]},
 	{path: 'blogs', component: BlogsListComponent},
-	{path: 'blogs/:blogId/edit', component: BlogsComponent},
-	{path: 'blog-new', component: BlogReactiveFormComponent}
+	{path: 'blogs/:blogId/edit', component: BlogsComponent, canActivate: [AuthGuard]},
+	{path: 'blog-new', component: BlogReactiveFormComponent, canActivate: [AuthGuard]}
 ];
 @NgModule({
 	imports: [RouterModule.forRoot(routes)],
-	exports: [RouterModule]
+	exports: [RouterModule],
+	providers: [AuthGuard]
 })
 export class AppRouterModule {
 }
