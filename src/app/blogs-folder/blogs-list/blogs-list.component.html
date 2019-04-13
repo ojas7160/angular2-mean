@@ -4,8 +4,10 @@ currentPage: p,
 totalItems: total }">
   {{blog.title}}
   <img [src]="blog.imagePath" alt="image">
-  <a href="" [routerLink]="['/blogs/edit', blog.id]">Edit</a>
-  <button class="btn btn-primary" (click)="deleteBlog(blog)">Delete</button>
+  <div *ngIf="authStatus">
+    <a href="" [routerLink]="['/blogs/edit', blog.id]">Edit</a>
+    <button class="btn btn-primary" (click)="deleteBlog(blog)">Delete</button>
+  </div>
 </div>
 <select [(ngModel)]="pageSize" (change)="newPageChange()">
   <option *ngFor="let i of pageSizeOption" value={{i}}>

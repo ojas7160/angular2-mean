@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { PostsComponentComponent } from './posts-component/posts-component.component';
@@ -15,13 +15,13 @@ import { HeaderComponent } from './header/header.component';
 import { BlogsComponent } from './blogs-folder/blogs/blogs.component';
 import { BlogsListComponent } from './blogs-folder/blogs-list/blogs-list.component';
 
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+// import { BsDropdownModule } from 'ngx-bootstrap/dropdown/ngx-bootstrap-dropdown';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { ModalModule } from 'ngx-bootstrap/modal';
+// import { TooltipModule } from 'ngx-bootstrap/tooltip/ngx-bootstrap-tooltip';
+// import { ModalModule } from 'ngx-bootstrap/modal/ngx-bootstrap-modal';
 import { BootstrapThemeComponent } from './bootstrap-theme/bootstrap-theme.component';
 import { BlogReactiveFormComponent } from './blog-reactive-form/blog-reactive-form.component';
-
+import { AuthInterceptor } from './authInterceptor';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,7 @@ import { BlogReactiveFormComponent } from './blog-reactive-form/blog-reactive-fo
     BlogReactiveFormComponent
   ],
   imports: [
-    HttpClientModule,
+  HttpClientModule,
     BrowserAnimationsModule,
     BrowserModule,
     AppRouterModule,
@@ -45,11 +45,11 @@ import { BlogReactiveFormComponent } from './blog-reactive-form/blog-reactive-fo
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-    BsDropdownModule.forRoot(),
-    TooltipModule.forRoot(),
-    ModalModule.forRoot()
+    // BsDropdownModule.forRoot(),
+    // TooltipModule.forRoot(),
+    // ModalModule.forRoot()
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

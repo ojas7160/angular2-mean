@@ -19,13 +19,19 @@
           <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" [routerLink]="['/posts']">Posts</a>
+          <a class="nav-link js-scroll-trigger" [routerLink]="['/blogs']">Blogs</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" [routerLink]="['/post']">Create post</a>
+        <li *ngIf="authStatus" class="nav-item">
+          <a class="nav-link js-scroll-trigger" [routerLink]="['/blog-create']">Create blog</a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="!authStatus" class="nav-item">
           <a class="nav-link js-scroll-trigger" [routerLink]="['/signup']">Signup</a>
+        </li>
+        <li *ngIf="!authStatus" class="nav-item">
+          <a class="nav-link js-scroll-trigger" [routerLink]="['/login']">login</a>
+        </li>
+        <li *ngIf="authStatus" class="nav-item">
+          <button class="nav-link js-scroll-trigger btn btn-warning" (click)="logout()">logout</button>
         </li>
       </ul>
     </div>

@@ -4,6 +4,7 @@ import { BlogService } from '../blogs.service';
 import { Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { AuthService } from '../../auth.service';
 // import { PageEvent } from '../../../../node_modules/@angular/material';
 
 @Component({
@@ -18,8 +19,14 @@ export class BlogsListComponent implements OnInit, OnDestroy {
   total = 100;
   p = 1;
   pageSizeOption = [1, 2, 5, 10];
+  authStatus = false;
   private blogSub: Subscription;
-  constructor(public blogService: BlogService, private http: HttpClient) { // automatically creates a property of same name
+  public authListenerSub: Subscription;
+  constructor( // automatically creates a property of same name
+    public blogService: BlogService,
+    private http: HttpClient,
+    private authService: AuthService
+  ) {
     // this blogService, we can fetch
     // this variable in the entire file
     // with 'this.blogService' only because
@@ -38,10 +45,15 @@ export class BlogsListComponent implements OnInit, OnDestroy {
       this.blogs = blogs;
       console.log(this.blogs);
     });
+    this.authStatus = this.authService.getIsAuthenticated();
+    this.authListenerSub = this.authService.getAuthStatus().subscribe(isAuthenticated => {
+      this.authStatus = isAuthenticated;
+    });
   }
 
   ngOnDestroy() {
     this.blogSub.unsubscribe();
+    this.authListenerSub.unsubscribe();
   }
 
   pageChange(event) {

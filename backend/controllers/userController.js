@@ -23,7 +23,7 @@ exports.userLogin = (req, res, next) => {
     }
 
     const token = jwt.sign({email: fetchedUser.email, userId: fetchedUser._id}, 'secretLongEnough', {expiresIn: '1h'})
-    res.json({
+    res.status(201).json({
       message: 'Success',
       token: token,
       body: fetchedUser,

@@ -16,7 +16,7 @@ export class AllPostsComponent implements OnInit {
     this.http.get('http://localhost:3001/api/posts/posts')
     .subscribe((response) => {
       console.log(response);
-      this.posts = response.posts;
+      // this.posts = response.posts;
     });
   }
 

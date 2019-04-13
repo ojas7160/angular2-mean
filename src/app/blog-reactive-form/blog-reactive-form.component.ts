@@ -27,11 +27,11 @@ export class BlogReactiveFormComponent implements OnInit {
     });
       this.route.paramMap.subscribe((paramMap: ParamMap) => {
         if (paramMap.get('blogId')) {
-          this.blog = this.blogService.getblog(paramMap.get('blogId'));
+          this.blog = this.blogService.getblogWithoutReq(paramMap.get('blogId'));
           this.blogService.getBlog(paramMap.get('blogId'))
           .subscribe((response) => {
             console.log(response);
-            this.blog = response.blog;
+            // this.blog = response.blog;
             // this.form.setValue({title: response.blog.title, description: response.blog.description});
           });
           console.log(this.blog);
@@ -56,7 +56,7 @@ export class BlogReactiveFormComponent implements OnInit {
     console.log('form', this.form);
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.get('blogId')) {
-        this.blogService.updateBlog(this.blog.id, this.form.value.title, this.form.value.description);
+        this.blogService.updateBlog(this.blog.id, this.form.value.title, this.form.value.description, this.form.value.file);
       } else {
         console.log('form', this.form);
         if (this.form.invalid) {

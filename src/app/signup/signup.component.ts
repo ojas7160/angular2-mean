@@ -20,10 +20,10 @@ export class SignupComponent implements OnInit {
   }
 
   signup(form: NgForm){
-    console.log(form)
+    console.log(form);
     this.http.post('http://localhost:3001/api/users/signup', {email: form.value.email, password: form.value.password})
     .subscribe(response => {
-      console.log(response)
+      console.log(response);
       // if(!!response.user){
       //   localStorage.setItem('userId', response.user._id)
       // }

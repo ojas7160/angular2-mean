@@ -3,6 +3,7 @@ const router = express.Router();
 const blogsController = require('../controllers/blogsController');
 const multer = require('multer');
 const Blog = require('../models/blog');
+const authGuard = require('../middleware/auth-guard');
 const MIME_TYPE_ARRAY = {
   'image/png': 'png',
   'image/jpeg': 'jpg',
@@ -25,9 +26,9 @@ const storage = multer.diskStorage({
 });
 router.get('/all-blogs', blogsController.getAllBlogs);
 // router.post('/create', blogsController.createBlog);
-router.post("/create", (multer({storage: storage}).single('image')), blogsController.createBlog);
-router.delete('/:id/delete-blog', blogsController.deleteBlog);
-router.put('/:id', (multer({storage: storage}).single('image')), blogsController.updateBlog);
+router.post("/create", authGuard, (multer({storage: storage}).single('image')), blogsController.createBlog);
+router.delete('/:id/delete-blog', authGuard, blogsController.deleteBlog);
+router.put('/:id', authGuard, (multer({storage: storage}).single('image')), blogsController.updateBlog);
 router.get('/:id', blogsController.getBlog);
 
 module.exports = router;

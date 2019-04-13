@@ -29,8 +29,8 @@ export class BlogsComponent implements OnInit {
             this.blogService.getBlog(paramMap.get('blogId'))
             .subscribe((response) => {
               console.log(response);
-              this.blog = response.blog;
-              this.imagePreview = this.blog.imagePath;
+              // this.blog = response.blog;
+              // this.imagePreview = this.blog.imagePath;
             });
             console.log(this.blog);
           }
