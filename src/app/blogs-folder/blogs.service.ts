@@ -38,17 +38,16 @@ export class BlogService {
     // array and fill new array with old array.
   }
 
-  addBlogs(title: string, description: string, userId: string, image: File) {
+  addBlogs(title: string, description: string, image: File) {
     console.log(title);
     console.log(description);
     // console.log(userId);
     console.log(image);
-    const blog: any = {title: title, description: description, userId: userId, image: image};
+    const blog: any = {title: title, description: description, image: image};
     const blogData: any = new FormData();
     console.log(blogData);
     blogData.append('title', title);
     blogData.append('description', description);
-    blogData.append('userId', userId);
     blogData.append('image', image, title);
     // console.log(blog);
     this.http.post("http://localhost:3001/api/blogs/create", blogData)
@@ -60,7 +59,8 @@ export class BlogService {
   }
 
   getBlog(id: string) {
-    return this.http.get<{_id: string, title: string, description: string, imagePath: string}>('http://localhost:3001/api/blogs/' + id);
+    return this.http.get<{ _id: string, title: string, description: string, imagePath: string, userId: string}>
+      ('http://localhost:3001/api/blogs/' + id);
   }
 
   updateBlog(id: string, title: string, description: string, image: string | File) {
@@ -77,7 +77,8 @@ export class BlogService {
         title: title,
         description: description,
         id: id,
-        imagePath: image
+        imagePath: image,
+        userId: null
       };
     }
     this.http.put<{message: string}>('http://localhost:3001/api/blogs/' + id, blogData)

@@ -27,6 +27,7 @@ exports.userLogin = (req, res, next) => {
       message: 'Success',
       token: token,
       body: fetchedUser,
+      userId: fetchedUser._id,
       expiresIn: 3600
     })
   })

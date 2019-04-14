@@ -63,7 +63,7 @@ export class BlogsComponent implements OnInit {
         if (form.invalid) {
           return;
         }
-        this.blogService.addBlogs(form.value.title, form.value.description, localStorage.getItem('userId'), form.value.file);
+        this.blogService.addBlogs(form.value.title, form.value.description, form.value.file);
       }
       // if (form.invalid) {
       //   return;

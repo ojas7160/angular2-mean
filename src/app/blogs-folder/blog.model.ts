@@ -3,4 +3,5 @@ export interface Blog {
   description: string;
   id: string;
   imagePath: string;
+  userId: string;
 }

@@ -8,7 +8,7 @@ exports.createBlog = (req, res, next) => {
       title: req.body.title,
       description: req.body.description,
       imagePath: url + '/images/' + req.file.filename,
-      userId: req.body.userId
+      userId: req.userData.userId
     }
   );
   blog.save()
@@ -47,11 +47,17 @@ exports.getAllBlogs = (req, res) => {
 }
 
 exports.deleteBlog = (req, res) => {
-  Blog.deleteOne({_id: req.params.id})
-  .then((resposne) => {
-    res.status(201).json({
-      message: 'Deleted',
-    })
+  Blog.deleteOne({_id: req.params.id, userId: req.userData.userId})
+  .then((response) => {
+    if (response.n > 0) {
+      res.status(201).json({
+        message: 'Deleted',
+      })
+    } else {
+      res.status(401).json({
+        message: 'Not authorized',
+      })
+    }
   });
 }
 
@@ -80,12 +86,18 @@ exports.updateBlog = (req, res) => {
     description: req.body.description,
     imagePath: imagePath
   }
-  Blog.updateOne({_id: req.body.id}, blog)
+  Blog.updateOne({_id: req.body.id, userId: req.userData.userId}, blog)
   .then((response) => {
     console.log(response);
-    res.status(200).json({
-      message: 'Updated successfully',
-      data: response
-    });
+    if (response.nModified > 0) {
+      res.status(201).json({
+        message: 'Updated successfully',
+        data: response
+      })
+    } else {
+      res.status(401).json({
+        message: 'Not authorized'
+      })
+    }
   })
 }

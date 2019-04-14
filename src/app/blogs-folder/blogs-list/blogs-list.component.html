@@ -4,7 +4,7 @@ currentPage: p,
 totalItems: total }">
   {{blog.title}}
   <img [src]="blog.imagePath" alt="image">
-  <div *ngIf="authStatus">
+  <div *ngIf="authStatus && userId === blog.userId">
     <a href="" [routerLink]="['/blogs/edit', blog.id]">Edit</a>
     <button class="btn btn-primary" (click)="deleteBlog(blog)">Delete</button>
   </div>

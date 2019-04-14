@@ -18,6 +18,7 @@ export class BlogsListComponent implements OnInit, OnDestroy {
   pageSize = 10;
   total = 100;
   p = 1;
+  userId: string;
   pageSizeOption = [1, 2, 5, 10];
   authStatus = false;
   private blogSub: Subscription;
@@ -39,6 +40,7 @@ export class BlogsListComponent implements OnInit, OnDestroy {
   ngOnInit() { // runs auto when this component is made. it requires onInit interface to be implemented
     console.log('here-----------');
     this.blogService.getBlogs(this.pageSize, this.p);
+    this.userId = this.authService.getUserId();
     console.log('blogs', this.blogs);
     this.blogSub = this.blogService.getBlogUpdatedListener()
     .subscribe((blogs: Blog[]) => {
@@ -48,6 +50,7 @@ export class BlogsListComponent implements OnInit, OnDestroy {
     this.authStatus = this.authService.getIsAuthenticated();
     this.authListenerSub = this.authService.getAuthStatus().subscribe(isAuthenticated => {
       this.authStatus = isAuthenticated;
+      this.userId = this.authService.getUserId();
     });
   }
 
