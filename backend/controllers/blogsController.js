@@ -89,7 +89,7 @@ exports.updateBlog = (req, res) => {
   Blog.updateOne({_id: req.body.id, userId: req.userData.userId}, blog)
   .then((response) => {
     console.log(response);
-    if (response.nModified > 0) {
+    if (response.n > 0) {
       res.status(201).json({
         message: 'Updated successfully',
         data: response

@@ -28,11 +28,16 @@ export class BlogReactiveFormComponent implements OnInit {
       this.route.paramMap.subscribe((paramMap: ParamMap) => {
         if (paramMap.get('blogId')) {
           this.blog = this.blogService.getblogWithoutReq(paramMap.get('blogId'));
-          this.blogService.getBlog<{blog: object}>(paramMap.get('blogId'))
+          this.blogService.getBlog(paramMap.get('blogId'))
           .subscribe((response) => {
             console.log(response);
             this.blog = response.blog;
-            // this.form.setValue({title: response.blog.title, description: response.blog.description});
+            // this.form.setValue(
+            //   {
+            //     title: response.blog.title,
+            //     description: response.blog.description
+            //   }
+            // );
           });
           console.log(this.blog);
         }

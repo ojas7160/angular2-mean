@@ -22,6 +22,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { BootstrapThemeComponent } from './bootstrap-theme/bootstrap-theme.component';
 import { BlogReactiveFormComponent } from './blog-reactive-form/blog-reactive-form.component';
 import { AuthInterceptor } from './authInterceptor';
+import { ErrorInterceptor } from './error-interceptor';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { AuthInterceptor } from './authInterceptor';
     BlogReactiveFormComponent
   ],
   imports: [
-  HttpClientModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     BrowserModule,
     AppRouterModule,
@@ -49,7 +50,10 @@ import { AuthInterceptor } from './authInterceptor';
     // TooltipModule.forRoot(),
     // ModalModule.forRoot()
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

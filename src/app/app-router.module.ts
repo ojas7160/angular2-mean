@@ -13,19 +13,22 @@ import { AuthGuard } from './auth.guard';
 
 // Routes are simple javascript object where we define to which url for which part of our app should be presented
 const routes: Routes = [
-	{path: 'post', component: PostsComponentComponent},
-	{path: '', component: BootstrapThemeComponent},
-	{path: 'posts', component: AllPostsComponent},
-	{path: 'login', component: LoginComponent},
-	{path: 'signup', component: SignupComponent},
-	{path: 'blog-create', component: BlogsComponent, canActivate: [AuthGuard]},
-	{path: 'blogs', component: BlogsListComponent},
-	{path: 'blogs/:blogId/edit', component: BlogsComponent, canActivate: [AuthGuard]},
-	{path: 'blog-new', component: BlogReactiveFormComponent, canActivate: [AuthGuard]}
+{path: 'post', component: PostsComponentComponent},
+{path: '', component: BootstrapThemeComponent},
+{path: 'posts', component: AllPostsComponent},
+{path: 'login', component: LoginComponent},
+{path: 'signup', component: SignupComponent},
+{path: 'blog-create', component: BlogsComponent, canActivate: [AuthGuard]},
+{path: 'blogs', component: BlogsListComponent},
+{path: 'blogs/:blogId/edit', component: BlogsComponent, canActivate: [AuthGuard]},
+{path: 'blog-new', component: BlogReactiveFormComponent, canActivate: [AuthGuard]}
 ];
 @NgModule({
+// tslint:disable-next-line:indent
 	imports: [RouterModule.forRoot(routes)],
+// tslint:disable-next-line:indent
 	exports: [RouterModule],
+// tslint:disable-next-line:indent
 	providers: [AuthGuard]
 })
 export class AppRouterModule {

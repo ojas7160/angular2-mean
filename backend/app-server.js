@@ -2,7 +2,7 @@
 const http = require('http');
 
 //to import the express js app
-const app = require('./backend/app');
+const app = require('./app');
 
 //for nodemon to work we need to require
 //nodemon is a dependeny whuch automatically restart the server if any js file get chnage

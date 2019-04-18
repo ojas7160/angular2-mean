@@ -30,6 +30,8 @@ export class BlogService {
       console.log('blog response', tranformedData);
       this.blogs = tranformedData;
       this.blogsUpdated.next([...this.blogs]);
+    }, error => { // error handling
+      console.log(error);
     });
     // return  [...this.blogs]; // this doesn't return blogs initially because this makes a copy and we need to subscribe by this way
     // array in js do not actually copy
@@ -50,7 +52,7 @@ export class BlogService {
     blogData.append('description', description);
     blogData.append('image', image, title);
     // console.log(blog);
-    this.http.post("http://localhost:3001/api/blogs/create", blogData)
+    this.http.post('http://localhost:3001/api/blogs/create', blogData)
       .subscribe((response) => {
         console.log(response);
       });
@@ -59,19 +61,19 @@ export class BlogService {
   }
 
   getBlog(id: string) {
-    return this.http.get<{ _id: string, title: string, description: string, imagePath: string, userId: string}>
+    return this.http.get<{ _id: string, title: string, description: string, imagePath: string, userId: string, blog: Blog}>
       ('http://localhost:3001/api/blogs/' + id);
   }
 
   updateBlog(id: string, title: string, description: string, image: string | File) {
     console.log('service');
     let blogData: Blog | FormData ;
-    if (typeof(image) == 'object') {
+    if (typeof(image) === 'object') {
       blogData = new FormData();
-      blogData.append("title", title);
-      blogData.append("description", description);
-      blogData.append("id", id);
-      blogData.append("image", image, title);
+      blogData.append('title', title);
+      blogData.append('description', description);
+      blogData.append('id', id);
+      blogData.append('image', image, title);
     } else {
       blogData = {
         title: title,

@@ -1,34 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const blogsController = require('../controllers/blogsController');
-const multer = require('multer');
 const Blog = require('../models/blog');
 const authGuard = require('../middleware/auth-guard');
-const MIME_TYPE_ARRAY = {
-  'image/png': 'png',
-  'image/jpeg': 'jpg',
-  'image/jpg': 'jpg'
-}
-const storage = multer.diskStorage({
-  destination: (req, file, callback) => {
-    let isValid = MIME_TYPE_ARRAY[file.mimetype];
-    let error = new Error('Invalid mimetype');
-    if (isValid) {
-      error = null
-    }
-    callback(error, 'backend/images')
-    
-  },
-  filename: (req, file, callback) => {
-    const name = file.originalname.toLowerCase().split(' ').join('-');
-    const ext = MIME_TYPE_ARRAY[file.mimetype];
-    callback(null, name + '-' + Date.now() + '.' + ext)}
-});
+const extractFile = require('../middleware/file-upload');
+
 router.get('/all-blogs', blogsController.getAllBlogs);
 // router.post('/create', blogsController.createBlog);
-router.post("/create", authGuard, (multer({storage: storage}).single('image')), blogsController.createBlog);
+router.post("/create", authGuard, extractFile, blogsController.createBlog);
 router.delete('/:id/delete-blog', authGuard, blogsController.deleteBlog);
-router.put('/:id', authGuard, (multer({storage: storage}).single('image')), blogsController.updateBlog);
+router.put('/:id', authGuard, extractFile, blogsController.updateBlog);
 router.get('/:id', blogsController.getBlog);
 
 module.exports = router;
